@@ -1,2 +1,5 @@
-# PixelmonNMUS
-This Minecraft sidemod removes Ultra Space from Pixelmon while moving/relocating the unique features and elements to other places in Minecraft.
+https://modrinth.com/mod/pixelmon-no-more-ultra-space
+
+Made by CCDelic
+
+Support the pixelmon mod here: https://pixelmonmod.com/
