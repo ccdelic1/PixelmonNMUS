@@ -1,7 +1,0 @@
-{
-  "type": "ultrabiomegone:ultra_ore",
-  "config": {
-    "block": "pixelmon:ultra_desert_gilded_sand",
-    "group": "desert"
-  }
-}
