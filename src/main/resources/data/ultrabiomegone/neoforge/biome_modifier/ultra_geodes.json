@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "ultrabiomegone:ultra_space_geode",
+    "ultrabiomegone:ultra_deep_geode",
+    "ultrabiomegone:ultra_desert_geode"
+  ],
+  "step": "underground_ores"
+}

@@ -1,0 +1,38 @@
+# NeoForge mod metadata for Ultra Biome Gone.
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="ultrabiomegone"
+version="9.3.16.x.2"
+displayName="Pixelmon N.M.U.S"
+authors="CCDelic"
+description='''
+PixelmonNMUS (No More Ultra Space) removes the Ultra Space dimension from play and redistributes
+its exclusive Pokemon, loot, chest pool, blocks and mechanics into thematically-matching overworld
+biomes. Every behaviour and number is configurable. A Pixelmon 9.3.16 side-mod.
+'''
+
+[[dependencies.ultrabiomegone]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.172,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.ultrabiomegone]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+
+# Load after Pixelmon so this mod can safely read Pixelmon APIs, post-process its loaded
+# spawn data, and (if needed) apply remap=false mixins to its non-obfuscated classes.
+[[dependencies.ultrabiomegone]]
+modId="pixelmon"
+type="required"
+versionRange="[9.3.16,)"
+ordering="AFTER"
+side="BOTH"
