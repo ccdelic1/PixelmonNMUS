@@ -8,6 +8,7 @@ import com.ccdelic.ultrabiomegone.biome.OverworldBiomeFamilies;
 import com.ccdelic.ultrabiomegone.config.Config;
 import com.pixelmonmod.pixelmon.api.spawning.SpawnInfo;
 import com.pixelmonmod.pixelmon.api.spawning.SpawnSet;
+import com.pixelmonmod.pixelmon.api.spawning.conditions.LocationType;
 import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.spawning.PixelmonSpawning;
 
@@ -17,11 +18,13 @@ import com.pixelmonmod.pixelmon.spawning.PixelmonSpawning;
  * original ultra data when we rewrite them; afterwards they reference only overworld biomes, so the
  * scrubber leaves them untouched.
  *
- * <p>For every spawn entry in each targeted set we keep ALL attributes verbatim (level range,
- * {@code stringLocationTypes}, times, {@code ultrabeast} tag, {@code palette:alter} specs) and only:
+ * <p>For every spawn entry in each targeted set we keep the remaining attributes verbatim (level
+ * range, times, {@code ultrabeast} tag) and only:
  * <ol>
  *   <li>replace the biome list with the mapped family's base biome + 2 sub-variants
- *       ({@link OverworldBiomeFamilies}), and</li>
+ *       ({@link OverworldBiomeFamilies});</li>
+ *   <li>force the location types to plain {@code Land} (dropping Buzzwole's {@code Tree Top}) so
+ *       every relocated Ultra Beast spawns like a normal ground Pokémon; and</li>
  *   <li>divide the rarity by 2 (0.5 &rarr; 0.25 for UBs).</li>
  * </ol>
  * Naganadel is intentionally absent (evolution only, no spawn entry). The alter-Porygon line is
@@ -91,5 +94,12 @@ public final class UltraBeastRelocator {
         info.condition.biomes.clear();
         info.condition.biomes.addAll(OverworldBiomeFamilies.toBiomeElements(family));
         info.rarity = info.rarity / rarityDivisor;
+        // Force plain Land spawns. fits() checks the transient resolved list (locationTypes), while
+        // stringLocationTypes is the raw form re-resolved on any future import — reset both so no
+        // relocated Ultra Beast keeps a Tree Top (or any non-Land) location type.
+        info.stringLocationTypes.clear();
+        info.stringLocationTypes.add("Land");
+        info.locationTypes.clear();
+        info.locationTypes.add(LocationType.LAND);
     }
 }

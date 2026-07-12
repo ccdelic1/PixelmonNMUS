@@ -24,7 +24,7 @@ public final class SpawnDataRebuilder {
     private SpawnDataRebuilder() {}
 
     /** All preset builders that {@link PixelmonSpawning#initialize()} feeds/caches. */
-    private static AbstractSpawner.SpawnerBuilder<?>[] presets() {
+    static AbstractSpawner.SpawnerBuilder<?>[] presets() {
         return new AbstractSpawner.SpawnerBuilder<?>[] {
             PixelmonSpawning.trackingSpawnerPreset,
             PixelmonSpawning.legendarySpawnerPreset,

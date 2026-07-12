@@ -47,6 +47,15 @@ public class BeastChestFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource random = context.random();
         BlockPos origin = context.origin();
 
+        // Config-driven rarity: 1-in-N chunks per placement attempt. Rolled here (not in the
+        // placed-feature JSON) so BEAST_CHEST_RARITY is actually respected — previously the rate
+        // was hard-coded in the JSON's rarity_filter and this config value did nothing. Roll first
+        // so the vast majority of chunks bail out before any heightmap/surface work.
+        int rarity = Config.BEAST_CHEST_RARITY.get();
+        if (rarity > 1 && random.nextInt(rarity) != 0) {
+            return false;
+        }
+
         // Pick a random position within the chunk
         int chunkX = origin.getX() >> 4;
         int chunkZ = origin.getZ() >> 4;

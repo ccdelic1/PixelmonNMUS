@@ -9,9 +9,12 @@ import net.neoforged.neoforge.common.ModConfigSpec;
  * COMMON config (loaded early on both sides, before spawn post-processing and worldgen run).
  *
  * <p>Handlers read these values live, so most changes take effect on a config reload / next
- * {@code /reload} (spawn data) or next world generation (geodes, beast chests). The datapack-driven pieces
- * (geode JSONs, crafting recipes, the replacement research quest) are not represented here —
- * those are tuned by editing/overriding the datapack JSONs.
+ * {@code /reload} (spawn data) or next world generation (geodes, beast chests). The geode and
+ * beast-chest master switches and rarities are enforced in code (a custom placement modifier and the
+ * beast-chest feature read them at worldgen time), so they only affect newly generated chunks. The
+ * remaining datapack-driven pieces (the geode block/structure definitions, crafting recipes, and the
+ * replacement research quest) are not represented here — those are tuned by editing/overriding the
+ * datapack JSONs.
  */
 public final class Config {
     private Config() {}
@@ -29,6 +32,7 @@ public final class Config {
     public static final ModConfigSpec.BooleanValue SCRUB_ULTRA_SPAWNS;
     public static final ModConfigSpec.BooleanValue RELOCATE_ULTRA_BEASTS;
     public static final ModConfigSpec.DoubleValue RELOCATION_RARITY_DIVISOR;
+    public static final ModConfigSpec.BooleanValue EXEMPT_ULTRA_BEASTS_FROM_LEVEL_GATE;
 
     // --- Loot ---
     public static final ModConfigSpec.BooleanValue RELOCATE_LOOT;
@@ -80,6 +84,12 @@ public final class Config {
         RELOCATION_RARITY_DIVISOR = b
             .comment("Divide the relocated spawns' rarity by this (default 2.0 -> UB 0.5 becomes 0.25).")
             .defineInRange("relocationRarityDivisor", 2.0D, 0.0001D, 1000.0D);
+        EXEMPT_ULTRA_BEASTS_FROM_LEVEL_GATE = b
+            .comment("Exempt Ultra Beasts (only them) from Pixelmon's party-level spawn gate, so they can appear",
+                     "even for low-level players. With Pixelmon's 'spawnLevelsCloserToPlayerLevels' on (its default),",
+                     "a spawn is normally blocked unless your highest party Pokemon is at least the spawn's minLevel;",
+                     "UBs spawn at level 60 (Poipole 40), which would otherwise hide them from early-game players.")
+            .define("exemptUltraBeastsFromLevelGate", true);
         b.pop();
 
         b.comment("Forage / headbutt ultra-exclusive loot relocation").push("loot");

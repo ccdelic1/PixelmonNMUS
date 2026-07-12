@@ -92,6 +92,12 @@ public final class SpawnDataPostProcessor {
                 UltraBiomeGone.debugLog("SpawnDataPostProcessor: no spawn data mutations enabled, skipping rebuild");
             }
 
+            // Exempt Ultra Beasts from Pixelmon's party-level spawn gate (only them). Runs after the
+            // rebuild so PixelmonSpawning.initialize() has (re)registered the stock PlayerBasedLevels
+            // condition we swap out; the preset conditions list is shared with every built spawner.
+            UltraBiomeGone.debugLog("SpawnDataPostProcessor: installing UltraBeastLevelExemption");
+            UltraBeastLevelExemption.install(SpawnDataRebuilder.presets());
+
             // Phase 2 — disable the open_wormhole external move. Runs here (after the rebuild, at the
             // tail of our LOWEST-priority reload listener) so it is after Pixelmon's drops loader has
             // re-registered the default move skills on this same reload.

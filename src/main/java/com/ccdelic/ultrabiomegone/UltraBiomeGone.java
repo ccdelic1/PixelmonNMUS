@@ -8,6 +8,7 @@ import com.ccdelic.ultrabiomegone.config.Config;
 import com.ccdelic.ultrabiomegone.dimension.UltraSpaceAccessGuard;
 import com.ccdelic.ultrabiomegone.spawning.UltraSpawnReloadListener;
 import com.ccdelic.ultrabiomegone.worldgen.ModFeatures;
+import com.ccdelic.ultrabiomegone.worldgen.ModPlacementModifiers;
 import com.ccdelic.ultrabiomegone.wormhole.WormholeMoveSkillDisabler;
 import com.pixelmonmod.pixelmon.Pixelmon;
 
@@ -52,6 +53,10 @@ public class UltraBiomeGone {
         // Register custom worldgen feature types (ultra geodes, beast chests).
         debugLog("Registering custom worldgen feature types (ultra_geode, beast_chest)");
         ModFeatures.register(modEventBus);
+
+        // Register the config-aware geode rarity placement modifier (geode_config).
+        debugLog("Registering custom placement modifier types (geode_config)");
+        ModPlacementModifiers.register(modEventBus);
 
         // Register the config so every behaviour/number is tunable (see Config).
         // Custom file name so it generates as PixelmonNMUS.toml (not <modid>-common.toml).
