@@ -75,11 +75,11 @@ public final class Config {
             .comment("Delete ultra-exclusive spawn pools and strip ultra biomes out of mixed pools (so no spawn references an ultra biome).")
             .define("scrubUltraSpawns", true);
         RELOCATE_ULTRA_BEASTS = b
-            .comment("Relocate the 12 Ultra Beast / alter-Porygon spawn sets into their mapped overworld biomes.")
+            .comment("Relocate the 10 Ultra Beast spawn sets into their mapped overworld biomes.")
             .define("relocateUltraBeasts", true);
         RELOCATION_RARITY_DIVISOR = b
-            .comment("Divide the relocated spawns' rarity by this (spec default 3.0 -> UB 0.5 becomes ~0.1667).")
-            .defineInRange("relocationRarityDivisor", 3.0D, 0.0001D, 1000.0D);
+            .comment("Divide the relocated spawns' rarity by this (default 2.0 -> UB 0.5 becomes 0.25).")
+            .defineInRange("relocationRarityDivisor", 2.0D, 0.0001D, 1000.0D);
         b.pop();
 
         b.comment("Forage / headbutt ultra-exclusive loot relocation").push("loot");
@@ -126,7 +126,7 @@ public final class Config {
             .define("enabled", true);
         BEAST_CHEST_RARITY = b
             .comment("Beast chest rarity: 1-in-N chunks per placement attempt. Lower = more common.")
-            .defineInRange("rarity", 150, 1, 10000);
+            .defineInRange("rarity", 1200, 1, 10000);
         b.pop();
 
         SPEC = b.build();

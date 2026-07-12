@@ -56,7 +56,7 @@ public final class SpawnDataPostProcessor {
             // Pixelmon's YAML config reload during startup would overwrite any earlier change.
             disableUltraSpaceConfig();
 
-            // Phase 3 — relocate the 12 Ultra Beast / alter-Porygon spawn sets to the overworld.
+            // Phase 3 — relocate the 10 Ultra Beast spawn sets to the overworld.
             if (Config.RELOCATE_ULTRA_BEASTS.get()) {
                 UltraBiomeGone.debugLog("SpawnDataPostProcessor: Phase 3 — running UltraBeastRelocator");
                 UltraBeastRelocator.run();

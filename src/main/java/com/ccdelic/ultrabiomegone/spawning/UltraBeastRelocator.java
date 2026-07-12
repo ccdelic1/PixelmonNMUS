@@ -12,7 +12,7 @@ import com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition;
 import com.pixelmonmod.pixelmon.spawning.PixelmonSpawning;
 
 /**
- * Phase 3: relocates the 12 Ultra Space spawn sets (10 Ultra Beasts + the alter Porygon line) into
+ * Phase 3: relocates the 10 Ultra Beast spawn sets into
  * overworld biomes. Runs <b>before</b> {@link UltraSpaceScrubber}, so the sets still hold their
  * original ultra data when we rewrite them; afterwards they reference only overworld biomes, so the
  * scrubber leaves them untouched.
@@ -22,10 +22,10 @@ import com.pixelmonmod.pixelmon.spawning.PixelmonSpawning;
  * <ol>
  *   <li>replace the biome list with the mapped family's base biome + 2 sub-variants
  *       ({@link OverworldBiomeFamilies}), and</li>
- *   <li>divide the rarity by 3 (0.5 &rarr; 0.1667 for UBs; Porygon 10.0 &rarr; 3.333;
- *       Porygon-Z 0.5 &rarr; 0.1667).</li>
+ *   <li>divide the rarity by 2 (0.5 &rarr; 0.25 for UBs).</li>
  * </ol>
- * Naganadel is intentionally absent (evolution only, no spawn entry).
+ * Naganadel is intentionally absent (evolution only, no spawn entry). The alter-Porygon line is
+ * likewise not relocated — its ultra-exclusive pools are left for {@link UltraSpaceScrubber} to delete.
  */
 public final class UltraBeastRelocator {
     private UltraBeastRelocator() {}
@@ -41,10 +41,8 @@ public final class UltraBeastRelocator {
         Map.entry("Pheromosa", OverworldBiomeFamilies.DESERT),
         Map.entry("Guzzlord", OverworldBiomeFamilies.DESERT),
         Map.entry("Stakataka", OverworldBiomeFamilies.DESERT),
-        // Plains ("electric plant" open landscape) — Xurkitree + alter Porygon line.
+        // Plains ("electric plant" open landscape) — Xurkitree.
         Map.entry("Xurkitree", OverworldBiomeFamilies.PLAINS),
-        Map.entry("Porygon", OverworldBiomeFamilies.PLAINS),
-        Map.entry("PorygonZ", OverworldBiomeFamilies.PLAINS),
         // Crater -> barren badlands.
         Map.entry("Celesteela", OverworldBiomeFamilies.BADLANDS),
         // Forest Ultra Beasts.
@@ -53,7 +51,7 @@ public final class UltraBeastRelocator {
     );
 
     public static void run() {
-        UltraBiomeGone.debugLog("UltraBeastRelocator: starting Ultra Beast / Porygon relocation");
+        UltraBiomeGone.debugLog("UltraBeastRelocator: starting Ultra Beast relocation");
         final float rarityDivisor = (float) (double) Config.RELOCATION_RARITY_DIVISOR.get();
         UltraBiomeGone.debugLog("UltraBeastRelocator: rarity divisor = {}", rarityDivisor);
         int relocatedSets = 0;
@@ -77,7 +75,7 @@ public final class UltraBeastRelocator {
             }
         }
         UltraBiomeGone.LOGGER.info(
-            "[UltraBiomeGone] Relocated {} Ultra Beast / alter-Porygon spawn sets ({} entries) to the overworld",
+            "[UltraBiomeGone] Relocated {} Ultra Beast spawn sets ({} entries) to the overworld",
             relocatedSets, relocatedEntries);
         if (relocatedSets != RELOCATIONS.size()) {
             UltraBiomeGone.LOGGER.warn(

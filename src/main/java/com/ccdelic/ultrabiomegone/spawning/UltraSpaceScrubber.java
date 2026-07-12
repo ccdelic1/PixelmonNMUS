@@ -27,7 +27,7 @@ import net.minecraft.tags.TagEntry;
  *       both the ultra-space and the overworld wormhole spawns;</li>
  *   <li><b>exclusively-ultra entries</b> (positive {@code condition} restricts to ultra biomes or
  *       the ultra dimension only) are removed — these are the fossil/trade-evo/UB pools that
- *       intentionally lose their wild spawns (the 12 relocated spawns are re-homed <i>before</i>
+ *       intentionally lose their wild spawns (the 10 relocated spawns are re-homed <i>before</i>
  *       this runs, in later phases, so by the time we get here they no longer reference ultra);</li>
  *   <li><b>mixed entries</b> have every ultra biome id, the {@code #pixelmon:spawning/ultra_space}
  *       tag ref, and the {@code pixelmon:ultra_space} dimension stripped from all of their
